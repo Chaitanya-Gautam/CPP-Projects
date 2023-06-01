@@ -1,6 +1,3 @@
-
-
-
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -9,7 +6,7 @@ using namespace std;
 
 class Book
 {
-private:
+private:                         //declaring private variables
     string title;
     string author;
     string isbn;
@@ -199,7 +196,7 @@ int main()
 
             cout << "Thank you for using the library management system!" << endl;
             cout << "---------------------------";
-            exitFlag = true;
+            exitFlag = true;                                                         //STOPS while loop and exicts code
         }
         else
         {
