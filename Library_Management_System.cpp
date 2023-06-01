@@ -2,51 +2,54 @@
 #include <string>
 #include <algorithm>
 
-using namespace std;
-
 class Book
 {
-private:                         //declaring private variables
-    string title;
-    string author;
-    string isbn;
+private:
+    std::string title;
+    std::string author;
+    std::string isbn;
     bool available;
 
 public:
-    void setTitle(const string &title_x)
+    void setTitle(const std::string& title_x)
     {
-
         title = title_x;
     }
-    void setAuthor(const string &autName)
+
+    void setAuthor(const std::string& autName)
     {
         author = autName;
     }
-    void setISBN(const string &new_id)
+
+    void setISBN(const std::string& new_id)
     {
         isbn = new_id;
     }
+
     void setAvailable(bool newAvailable)
     {
         available = newAvailable;
     }
 
-    string getTitle() const
+    std::string getTitle() const
     {
         return title;
     }
-    string getAuthor() const
+
+    std::string getAuthor() const
     {
         return author;
     }
-    string getISBN() const
+
+    std::string getISBN() const
     {
         return isbn;
     }
-    string getAvailable() const
+
+    std::string getAvailable() const
     {
         return (available ? "Available" : "Checked out");
-        cout << "---------------------------";
+        std::cout << "-----------------------------------------";
     }
 
     void borrowBook()
@@ -54,13 +57,13 @@ public:
         if (available)
         {
             available = false;
-            cout << "Book borrowed." << endl;
-            cout << "---------------------------";
+            std::cout << "Book borrowed." << std::endl;
+            std::cout << "-----------------------------------------";
         }
         else
         {
-            cout << "Error:Book already issued." << endl;
-            cout << "---------------------------";
+            std::cout << "Error: Book already issued." << std::endl;
+            std::cout << "-----------------------------------------";
         }
     }
 
@@ -69,13 +72,13 @@ public:
         if (!available)
         {
             available = true;
-            cout << "Book returned" << endl;
-            cout << "---------------------------";
+            std::cout << "Book returned." << std::endl;
+            std::cout << "-----------------------------------------";
         }
         else
         {
-            cout << "Error: Book is available and can't be returned" << endl;
-            cout << "---------------------------";
+            std::cout << "Error: Book is available and can't be returned." << std::endl;
+            std::cout << "-----------------------------------------";
         }
     }
 };
@@ -85,60 +88,59 @@ int main()
     const int maxBooks = 100;
     Book library[maxBooks];
     Book newBook;
-    string title, author, isbn;
+    std::string title, author, isbn;
 
     int choice;
     int numBooks = 0;
     bool exitFlag = false;
+
     while (!exitFlag)
     {
+        std::cout << std::endl << std::endl << "Hello, Welcome to the library management system!" << std::endl
+            << std::endl
+            << "Menu:" << std::endl
+            << "1. Add book" << std::endl
+            << "2. Remove book" << std::endl
+            << "3. Search for book" << std::endl
+            << "4. Exit" << std::endl;
 
-        cout << endl << endl <<  "Welcome to the library management system!" << endl
-             << endl
-             << "Menu:"
-             << endl
-             << "1. Add book" << endl
-             << "2. Remove book" << endl
-             << "3. Search for book" << endl
-             << "4. Exit" << endl;
-
-        cout << "Enter your choice: ";
-        cin >> choice;
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
 
         if (choice == 1)
         {
             if (numBooks == maxBooks)
             {
-                cout << "Error: The library is full" << endl;
-                cout << "---------------------------";
+                std::cout << "Error: The library is full." << std::endl;
+                std::cout << "-----------------------------------------";
                 continue;
             }
 
-            cout << "Enter Book title: ";
-            cin.ignore();
-            getline(cin, title);
+            std::cout << "Enter Book title: ";
+            std::cin.ignore();
+            std::getline(std::cin, title);
             newBook.setTitle(title);
 
-            cout << "Enter book author: ";
-            getline(cin, author);
+            std::cout << "Enter book author: ";
+            std::getline(std::cin, author);
             newBook.setAuthor(author);
 
-            cout << "Enter Book ISBN: ";
-            cin >> isbn;
+            std::cout << "Enter Book ISBN: ";
+            std::cin >> isbn;
             newBook.setISBN(isbn);
 
             newBook.setAvailable(true);
             library[numBooks] = newBook;
             numBooks++;
 
-            cout << endl
-                 << "Book added to library";
+            std::cout << std::endl << "Book added to library." << std::endl;
+            std::cout << "-----------------------------------------";
         }
         else if (choice == 2)
         {
-            cout << "Enter Book ISBN: ";
-            cin.ignore();
-            cin >> isbn;
+            std::cout << "Enter Book ISBN: ";
+            std::cin.ignore();
+            std::cin >> isbn;
             newBook.setISBN(isbn);
 
             bool foundBook = false;
@@ -146,27 +148,26 @@ int main()
             {
                 if (library[i].getISBN() == isbn)
                 {
-                    // delete library[i];
                     library[i] = library[numBooks - 1];
                     numBooks--;
                     foundBook = true;
-                    cout << "Book removed from library." << endl;
-                    cout << "---------------------------";
+                    std::cout << "Book removed from library." << std::endl;
+                    std::cout << "-----------------------------------------";
                     break;
                 }
             }
 
             if (!foundBook)
             {
-                cout << "Error: Book not found";
-                cout << "---------------------------";
+                std::cout << "Error: Book not found." << std::endl;
+                std::cout << "-----------------------------------------";
             }
         }
         else if (choice == 3)
         {
-            cout << "Enter book ISBN: ";
-            cin.ignore();
-            cin >> isbn;
+            std::cout << "Enter book ISBN: ";
+            std::cin.ignore();
+            std::cin >> isbn;
 
             bool foundBook = false;
 
@@ -174,35 +175,36 @@ int main()
             {
                 if (library[i].getISBN() == isbn)
                 {
-                    cout << "Book info: " << endl;
-                    cout << "Title: " << library[i].getTitle() << endl;
-                    cout << "Author: " << library[i].getAuthor() << endl;
-                    cout << "ISBN: " << library[i].getISBN() << endl;
-                    cout << "Availablity: " << library[i].getAvailable() << endl;
-                    cout << "---------------------------";
+                    
+                    std::cout << "Availability: " << library[i].getAvailable() << std::endl;
+                    std::cout << "Book info:" << std::endl;
+                    std::cout << "Title: " << library[i].getTitle() << std::endl;
+                    std::cout << "Author: " << library[i].getAuthor() << std::endl;
+                    std::cout << "ISBN: " << library[i].getISBN() << std::endl;
+                    
                     foundBook = true;
                     break;
                 }
             }
-                if (!foundBook)
-                {
-                    cout << "Error: Book not found." << endl;
-                    cout << "---------------------------";
-                }
-            
+
+            if (!foundBook)
+            {
+                std::cout << "Error: Book not found." << std::endl;
+                std::cout << "-----------------------------------------";
+            }
         }
         else if (choice == 4)
         {
-
-            cout << "Thank you for using the library management system!" << endl;
-            cout << "---------------------------";
-            exitFlag = true;                                                         //STOPS while loop and exicts code
+            std::cout << "Thank you for using the library management system!" << std::endl;
+            std::cout << "-----------------------------------------";
+            exitFlag = true;
         }
         else
         {
-            cout << "Invalid choice. Please try again." << endl;
-            cout << "---------------------------";
+            std::cout << "Invalid choice. Please try again." << std::endl;
+            std::cout << "-----------------------------------------";
         }
     }
+
     return 0;
 }
